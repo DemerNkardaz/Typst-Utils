@@ -1,4 +1,5 @@
 #import "modules/charlist.typ": *
+#import "modules/locale_based.typ": *
 #import "modules/typographics.typ"
 
 #import "setups/base.typ"
@@ -7,6 +8,15 @@
 
 #set text(lang: "ru", font: "Noto Serif", size: 13pt)
 #set par(first-line-indent: 1.25cm, leading: 0.65em)
+
+// #set text(
+//   font: (
+//     "PlayFair Display",
+//     "Noto Serif JP",
+//   ),
+// )
+
+
 
 #show: base.init
 
@@ -18,6 +28,11 @@
 This is Em-Space: «#chr.emsp» \
 
 This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
+
+$
+  №_(lambda^(4_0))
+$
+
 
 
 === Проверка висячей пунктуации
@@ -41,3 +56,13 @@ This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
     А здесь `overhang` *выключен* (красная рамка). Заметьте, что точки и запятые теперь находятся строго внутри блока, из-за чего правый край текста визуально кажется менее ровным и "изъеденным".
   ])
 ]
+
+
+Тестовый #text(fill: blue)[синий текст] и обычный текст.
+
+// Это пример текста с японским вставленным посреди него: #text(font: "Noto Serif JP", lang: "ja")[こんにちは、世界！]
+Это пример текста с японским вставленным посреди него:
+#textLocale(lang: "ja", fontIndex: 0)[こんにちは、世界！]
+
+
+// Это пример текста с японским вставленным посреди него: こんにちは、世界！
