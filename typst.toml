@@ -1,0 +1,10 @@
+[package]
+name = "typst-utils"
+version = "0.1.0"
+entrypoint = "bkank.typ"
+authors = ["Яллла Нкардаз"]
+license = "MIT"
+description = "Проект утилит"
+repository = "https://github.com/DemerNkardaz/Typst-Utils"
+compiler = "0.12.0"
+exclude = ["build/", "*.pdf"]
