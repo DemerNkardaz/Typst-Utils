@@ -1,11 +1,26 @@
+/* Imports */
+
+#import "modules/meta.typ": meta
+
 #import "modules/charlist.typ": *
 #import "modules/font_utils.typ" as FontUtils
 #import "modules/text_locale.typ" as TextLocale
+#import "modules/dictionary.typ" as Dict
 #import "modules/typographics.typ"
 
 #import "setups/base.typ"
 
-#set page(paper: "a4", margin: 2cm)
+/* Sets */
+
+#set page(
+  paper: "a4",
+  margin: 2cm,
+)
+
+#set par(
+  first-line-indent: 1.25cm,
+  leading: 0.65em,
+)
 
 #set text(
   lang: "ru",
@@ -15,23 +30,16 @@
   ),
   size: 13pt,
 )
-#set par(first-line-indent: 1.25cm, leading: 0.65em)
-
-// #set text(
-//   font: (
-//     "PlayFair Display",
-//     "Noto Serif JP",
-//   ),
-// )
-
-#FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 #show: base.init
 
+/* Document */
 
-= Test
+= #meta.title
 
-#text("")
+*Автор:* #meta.author \ *Версия:* #meta.version
+
+#FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 This is Em-Space: «#chr.emsp» \
 
@@ -41,6 +49,10 @@ This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
 $
   №_(lambda^(4_0))
 $
+
+
+#Dict.getTerm("Сёгун2")
+#Dict.getTerm("Сёгун")
 
 
 

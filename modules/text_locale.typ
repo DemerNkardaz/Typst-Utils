@@ -7,7 +7,7 @@
     return langFonts.at(index, default: false)
   }
 
-  false
+  return false
 }
 
 #let apply(lang: "", fontIndex: 0, content) = {
