@@ -1,6 +1,9 @@
 /* Imports */
 
+#import "@preview/rustycure:0.2.0": qr-code
+
 #import "modules/charlist.typ": *
+#import "modules/misc.typ" as Misc
 #import "modules/font_utils.typ" as FontUtils
 #import "modules/text_locale.typ" as TextLocale
 #import "modules/dictionary.typ" as Dict
@@ -10,10 +13,17 @@
 
 /* Base variables and constants */
 
-#let meta = json("data/meta.json")
-#let book = json("data/book.json")
+#let meta = yaml("data/meta.yml")
+#let book = yaml("data/book.yml")
 
-#let docLang = meta.at("language[ISO-639]")
+#let project = (
+  lang: meta.at("language[ISO-639]"),
+  baseFontSize: 13pt,
+  baseFont: FontUtils.getFonts(
+    type: "serif",
+    primaryFont: "PlayFair Display",
+  ),
+)
 
 /* Sets */
 
@@ -28,16 +38,13 @@
 )
 
 #set text(
-  lang: docLang,
-  font: FontUtils.getFonts(
-    type: "serif",
-    primaryFont: "PlayFair Display",
-  ),
-  size: 13pt,
+  lang: project.lang,
+  font: project.baseFont,
+  size: project.baseFontSize,
 )
 
 #show: Base.init
-#show: Typographics.apply.with(lang: docLang)
+#show: Typographics.apply.with(lang: project.lang)
 
 /* Document */
 
@@ -45,11 +52,15 @@
 
 *Автор:* #meta.author \ *Версия:* #meta.version
 
+#Misc.placeCopyright(meta.author, meta.year)
+
 #FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 This is Em-Space: «#chr.emsp» \
 
 This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
+
+#qr-code("https://typst.app/")
 
 
 $
@@ -92,7 +103,7 @@ $
 
 // Это пример текста с японским вставленным посреди него: #text(font: "Noto Serif JP", lang: "ja")[こんにちは、世界！]
 Это пример текста с японским вставленным посреди него:
-#TextLocale.apply(lang: "ja", fontIndex: 0)[こんにちは、世界！]
+#TextLocale.apply(lang: "ja", font: 0)[こんにちは、世界！]
 
 
 // Это пример текста с японским вставленным посреди него: こんにちは、世界！
