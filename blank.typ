@@ -1,12 +1,20 @@
 #import "modules/charlist.typ": *
-#import "modules/locale_based.typ": *
+#import "modules/font_utils.typ" as FontUtils
+#import "modules/text_locale.typ" as TextLocale
 #import "modules/typographics.typ"
 
 #import "setups/base.typ"
 
 #set page(paper: "a4", margin: 2cm)
 
-#set text(lang: "ru", font: "Noto Serif", size: 13pt)
+#set text(
+  lang: "ru",
+  font: FontUtils.getFonts(
+    type: "serif",
+    primaryFont: "PlayFair Display",
+  ),
+  size: 13pt,
+)
 #set par(first-line-indent: 1.25cm, leading: 0.65em)
 
 // #set text(
@@ -16,7 +24,7 @@
 //   ),
 // )
 
-
+#FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 #show: base.init
 
@@ -28,6 +36,7 @@
 This is Em-Space: «#chr.emsp» \
 
 This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
+
 
 $
   №_(lambda^(4_0))
@@ -62,7 +71,7 @@ $
 
 // Это пример текста с японским вставленным посреди него: #text(font: "Noto Serif JP", lang: "ja")[こんにちは、世界！]
 Это пример текста с японским вставленным посреди него:
-#textLocale(lang: "ja", fontIndex: 0)[こんにちは、世界！]
+#TextLocale.apply(lang: "ja", fontIndex: 0)[こんにちは、世界！]
 
 
 // Это пример текста с японским вставленным посреди него: こんにちは、世界！
