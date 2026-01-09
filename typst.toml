@@ -1,7 +1,7 @@
 [package]
 name = "typst-utils"
 version = "0.1.0"
-entrypoint = "bkank.typ"
+entrypoint = "blank.typ"
 authors = ["Яллла Нкардаз"]
 license = "MIT"
 description = "Проект утилит"

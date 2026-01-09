@@ -1,14 +1,19 @@
 /* Imports */
 
-#import "modules/meta.typ": meta
-
 #import "modules/charlist.typ": *
 #import "modules/font_utils.typ" as FontUtils
 #import "modules/text_locale.typ" as TextLocale
 #import "modules/dictionary.typ" as Dict
-#import "modules/typographics.typ"
+#import "modules/typographics.typ" as Typographics
 
-#import "setups/base.typ"
+#import "setups/base.typ" as Base
+
+/* Base variables and constants */
+
+#let meta = json("data/meta.json")
+#let book = json("data/book.json")
+
+#let docLang = meta.at("language[ISO-639]")
 
 /* Sets */
 
@@ -23,7 +28,7 @@
 )
 
 #set text(
-  lang: "ru",
+  lang: docLang,
   font: FontUtils.getFonts(
     type: "serif",
     primaryFont: "PlayFair Display",
@@ -31,7 +36,8 @@
   size: 13pt,
 )
 
-#show: base.init
+#show: Base.init
+#show: Typographics.apply.with(lang: docLang)
 
 /* Document */
 
@@ -54,6 +60,9 @@ $
 #Dict.getTerm("Сёгун2")
 #Dict.getTerm("Сёгун")
 
+
+*Библиографическая информация:*\
+#book.at("Библиографическая информация") \ \ #book
 
 
 === Проверка висячей пунктуации

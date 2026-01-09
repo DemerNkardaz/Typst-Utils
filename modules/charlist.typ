@@ -11,7 +11,7 @@
   tab: "\u{0009}", // Tab
   sp: "\u{0020}", // Space
   nbsp: "\u{00A0}", // No-Break Space
-  enqd: "\u{2001}", // Em Quad
+  enqd: "\u{2000}", // Em Quad
   emqd: "\u{2001}", // Em Quad
   ensp: "\u{2002}", // En Space
   emsp: "\u{2003}", // Em Space
