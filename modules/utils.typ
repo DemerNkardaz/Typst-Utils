@@ -1,6 +1,7 @@
-/*
- * Case-Insensitive Dictionary
- */
+#let regex-rules = (
+  w-s-unit: "^(\\d+)\\s*[×*]\\s*(\\d+)\\s*in\\s*(.+)$",
+)
+
 #let make-ci-dict(dict) = {
   let lookup = (:)
 
@@ -19,4 +20,22 @@
     },
     entry: key => lookup.at(lower(key), default: none),
   )
+}
+
+#let parse-parameters(content) = {
+  let match = content.match(regex(regex-rules.w-s-unit))
+
+  if match != none {
+    let captures = match.captures
+    let first = captures.at(0)
+    let second = captures.at(1)
+    let unit = captures.at(2)
+
+    return (
+      eval(first + unit),
+      eval(second + unit),
+    )
+  }
+
+  return content
 }

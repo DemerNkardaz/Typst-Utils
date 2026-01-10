@@ -1,20 +1,34 @@
-# print or web // or custom mode
-mode: web
+mode: default(web)
 meta:
   format: 70×108 1/16
 default:
+  font:
+    family: false
+    fallback: 
+      - Noto Serif
+      - Noto Serif JP
+      - Noto Serif SC
+      - Noto Serif TC
+      - Noto Serif HK
+      - Noto Serif KR
+      - Noto Serif Tangut
+      - Noto Serif Khitan Small Script
+      - Noto Sans Nushu
+    size: 11.5pt
+    footnote-size: 9pt
   page:
-    width: 170mm
-    height: 260mm
-    margin:
-      top: 21mm
-      bottom: 21mm
+    # https://typst.app/docs/reference/layout/page/#parameters-paper
+    # “custom” for customizable width and height or paper variant from link above
+    paper: custom
+    # “size” contains width and height parameters both
+    # (size: 170 × 260 in mm)    
+    # you can use “width” and “height” keys instead
+    # (width: 170mm, height: 260mm)
+    size: 170 × 260 in mm
+    # you can define “margin” with single value
+    # or use “top”, “bottom”, “inside” and “outside” inside the “margin” key
+    margin: 21mm
   first-line-indent: 5mm
-web:
-  page:
-    margin:
-      inside: 21mm
-      outside: 21mm
 print:
   page:
     margin:

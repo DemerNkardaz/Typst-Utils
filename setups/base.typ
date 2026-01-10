@@ -1,9 +1,29 @@
 #import "/modules/layout.typ": get as layout-get
 
 #let init(body) = {
+  let page-paper = layout-get("page.paper")
+  let page-size = layout-get("page.size")
+  let page-width = layout-get("page.width")
+  let page-height = layout-get("page.height")
+
+  if page-width == none {
+    page-width = page-size.at(0)
+  }
+  if page-height == none {
+    page-height = page-size.at(1)
+  }
+
+  let page-params = if page-paper != "custom" {
+    (paper: lower(page-paper))
+  } else {
+    (
+      width: page-width,
+      height: page-height,
+    )
+  }
+
   set page(
-    width: layout-get("page.width"),
-    height: layout-get("page.height"),
+    ..page-params,
     margin: (
       top: layout-get("page.margin.top"),
       bottom: layout-get("page.margin.bottom"),
@@ -27,6 +47,7 @@
     first-line-indent: layout-get("first-line-indent"),
   )
   set text(
+    size: layout-get("font.size"),
     hyphenate: true,
     overhang: true,
     ligatures: true,
