@@ -3,6 +3,7 @@
 #import "@preview/rustycure:0.2.0": qr-code
 
 #import "modules/charlist.typ": *
+#import "modules/glossary.typ" as Glossary
 #import "modules/misc.typ" as Misc
 #import "modules/font_utils.typ" as FontUtils
 #import "modules/text_locale.typ" as TextLocale
@@ -13,29 +14,24 @@
 
 /* Base variables and constants */
 
-#let meta = yaml("data/meta.yml")
-#let book = yaml("data/book.yml")
+
+#let meta = yaml("assets/data/meta.yml")
+#let book = yaml("assets/data/book.yml")
 
 #let project = (
   lang: meta.at("language[ISO-639]"),
-  baseFontSize: 13pt,
+  baseFontSize: 11pt,
   baseFont: FontUtils.getFonts(
     type: "serif",
-    primaryFont: "PlayFair Display",
+    // primaryFont: "PlayFair Display",
   ),
 )
 
 /* Sets */
 
-#set page(
-  paper: "a4",
-  margin: 2cm,
-)
+#set page(width: 175mm, height: 270mm)
 
-#set par(
-  first-line-indent: 1.25cm,
-  leading: 0.65em,
-)
+#set par(first-line-indent: 1.25cm)
 
 #set text(
   lang: project.lang,
@@ -46,8 +42,12 @@
 #show: Base.init
 #show: Dict.applyHandle
 #show: Typographics.apply.with(lang: project.lang)
-Сёгун#super([@Сёгун])
 
+#show: Glossary.init.with(
+  glossary-number-style-in-text: "^[1]",
+  glossary-number-style: "1.",
+  sources: "../assets/data/glossary.yml",
+)
 
 /* Document */
 
@@ -57,6 +57,10 @@
 
 #Misc.placeCopyright(meta.author, meta.year)
 
+
+#include "content/chapters/chapter-1.typ"
+
+
 #FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 This is Em-Space: «#chr.emsp» \
@@ -65,13 +69,21 @@ This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
 
 #qr-code("https://typst.app/")
 
-
 $
   №_(lambda^(4_0))
 $
 
 
+В период Эдо сёгун@Сёгун правил страной, опираясь на даймё@Даймё.
+Военное сословие самураев@Самурай служило феодалам.
+
+\
+
 #Dict.getTerm("Сёгун")
+
+fi fl ffl VV 1234567890
+
+#lorem(90)
 
 
 *Библиографическая информация:*\
@@ -113,4 +125,6 @@ $
 
 
 // Это пример текста с японским вставленным посреди него: こんにちは、世界！
-#bibliography("data/dictionary.yml", style: "glossary.csl", title: "Глоссарий")
+// #bibliography("assets/data/dictionary.yml", style: "glossary.csl", title: "Глоссарий")
+
+#Glossary.print()
