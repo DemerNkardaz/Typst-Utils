@@ -5,10 +5,10 @@
     width: layout-get("page.width"),
     height: layout-get("page.height"),
     margin: (
-      top: layout-get("page.top-margin"),
-      bottom: layout-get("page.bottom-margin"),
-      inside: layout-get("page.inside-margin"),
-      outside: layout-get("page.outside-margin"),
+      top: layout-get("page.margin.top"),
+      bottom: layout-get("page.margin.bottom"),
+      inside: layout-get("page.margin.inside"),
+      outside: layout-get("page.margin.outside"),
     ),
     footer: context [
       #set align(right)
