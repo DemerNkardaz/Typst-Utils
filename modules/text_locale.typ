@@ -13,12 +13,9 @@
 #let apply(lang: "", font: 0, content) = {
   let fontValue = false
 
-  // Определяем тип: строка (имя) или число (индекс)
   if type(font) == str {
-    // Прямое имя шрифта
     fontValue = font
   } else if type(font) == int {
-    // Индекс шрифта
     fontValue = getFont(lang, font)
   }
 

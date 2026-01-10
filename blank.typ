@@ -44,7 +44,10 @@
 )
 
 #show: Base.init
+#show: Dict.applyHandle
 #show: Typographics.apply.with(lang: project.lang)
+Сёгун#super([@Сёгун])
+
 
 /* Document */
 
@@ -68,7 +71,6 @@ $
 $
 
 
-#Dict.getTerm("Сёгун2")
 #Dict.getTerm("Сёгун")
 
 
@@ -105,5 +107,10 @@ $
 Это пример текста с японским вставленным посреди него:
 #TextLocale.apply(lang: "ja", font: 0)[こんにちは、世界！]
 
+\
+\
+\
+
 
 // Это пример текста с японским вставленным посреди него: こんにちは、世界！
+#bibliography("data/dictionary.yml", style: "glossary.csl", title: "Глоссарий")

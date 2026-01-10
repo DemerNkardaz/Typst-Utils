@@ -6,33 +6,43 @@
 
 #let data = makeDictCI(yaml("../data/dictionary.yml"))
 
+#let rules = (
+  (
+    pattern: regex("<\|\[([A-Z]{2,3})\](?:\[([^\]]+)\])?\|\[\'([^{}]*?)\'\]>"),
+    replace: match => {
+      let captures = match.text.match(regex("<\|\[([A-Z]{2,3})\](?:\[([^\]]+)\])?\|\[\'([^{}]*?)\'\]>")).captures
 
-#let termHandle(key, text) = {
-  show regex("<\#K>"): it => (data.key)(key)
+      let lang = captures.at(0)
+      let fontStr = captures.at(1)
+      let content = captures.at(2)
 
-  show regex("<\|\[([A-Z]{2,3})\](?:\[([^\]]+)\])?\|\{([^{}]*)\}>"): match => {
-    let captures = match.text.match(regex("<\|\[([A-Z]{2,3})\](?:\[([^\]]+)\])?\|\{([^{}]*)\}>")).captures
-
-    let lang = captures.at(0)
-    let fontStr = captures.at(1)
-    let content = captures.at(2)
-
-    let font = if fontStr != none and fontStr != "" {
-      // Убираем кавычки если есть
-      let cleaned = fontStr.trim("\"").trim("'")
-      if cleaned.match(regex("^\d+$")) != none {
-        int(cleaned)
+      let font = if fontStr != none and fontStr != "" {
+        let cleaned = fontStr.trim("\"").trim("'")
+        if cleaned.match(regex("^\d+$")) != none {
+          int(cleaned)
+        } else {
+          cleaned
+        }
       } else {
-        cleaned
+        0
       }
-    } else {
-      0
-    }
 
-    TextLocale(lang: lower(lang), font: font)[#content]
+      TextLocale(lang: lower(lang), font: font)[#content]
+    },
+  ),
+)
+
+#let applyHandle(content) = {
+  let result = content
+
+  for rule in rules.rev() {
+    result = {
+      show rule.pattern: match => (rule.replace)(match)
+      result
+    }
   }
 
-  text
+  result
 }
 
 #let getTerm(termLabel) = {
@@ -43,10 +53,14 @@
     return text(fill: red)[Term called “#termLabel” not found in dictionary.]
   }
 
-  termString = termHandle(searchKey, termString)
+  let title = termString.at("title")
+  let note = termString.at("note", default: none)
+  let abstract = termString.at("abstract")
+  let abstractStart = [#sym.space.nobreak— ]
 
-  return termString
+  note = if note != none { " (" + note + ")" } else {}
+
+  let output = [#title#note#abstractStart#abstract]
+
+  return applyHandle()[#output]
 }
-
-
-#getTerm("Сёгун")
