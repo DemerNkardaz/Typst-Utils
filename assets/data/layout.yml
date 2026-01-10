@@ -1,0 +1,15 @@
+# print or web
+mode: web
+meta:
+  format: 70×108 1/16
+default:
+  page-width: 160mm
+  page-height: 270mm
+  top-margin: 21mm
+  bottom-margin: 21mm
+web:
+  inside-margin: 21mm
+  outside-margin: 21mm
+print:
+  inside-margin: 16mm
+  outside-margin: 26mm

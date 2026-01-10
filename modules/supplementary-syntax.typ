@@ -1,4 +1,4 @@
-#import "text_locale.typ" as Text-Locale
+#import "/modules/text_locale.typ" as Text-Locale
 
 #let rules = (
   text-locale: (

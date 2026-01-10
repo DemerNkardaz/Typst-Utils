@@ -1,6 +1,13 @@
+#import "/modules/layout.typ": get as layout-get
+
 #let init(body) = {
   set page(
-    margin: 2cm,
+    margin: (
+      top: layout-get("top-margin"),
+      bottom: layout-get("bottom-margin"),
+      inside: layout-get("inside-margin"),
+      outside: layout-get("outside-margin"),
+    ),
     footer: context [
       #set align(right)
       #set text(8pt)
@@ -23,5 +30,6 @@
     historical-ligatures: true,
     number-type: "lining",
   )
+
   body
 }

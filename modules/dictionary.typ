@@ -1,4 +1,4 @@
-#let data = yaml("../assets/data/glossary.yml")
+#let data = yaml("/assets/data/glossary.yml")
 
 #let get-term(termLabel) = {
   let searchKey = lower(termLabel)

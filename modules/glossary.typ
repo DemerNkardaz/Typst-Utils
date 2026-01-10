@@ -18,20 +18,32 @@
   })
 }
 
-#let load(path) = {
-  let data = yaml(path)
+#let load(paths) = {
+  // Нормализуем входные данные: если передана строка, делаем массив
+  let paths-array = if type(paths) == str {
+    (paths,)
+  } else if type(paths) == array {
+    paths
+  } else {
+    panic("load() принимает строку (путь) или массив строк (пути)")
+  }
 
-  for (key, entry) in data {
-    if type(entry) == dictionary {
-      glossary-entry(
-        key,
-        title: entry.at("title", default: ""),
-        note: entry.at("note", default: none),
-        long: entry.at("long", default: ""),
-        short: entry.at("short", default: ""),
-      )
-    } else if type(entry) == str {
-      glossary-entry(key, long: entry)
+  // Загружаем все файлы по очереди
+  for path in paths-array {
+    let data = yaml(path)
+
+    for (key, entry) in data {
+      if type(entry) == dictionary {
+        glossary-entry(
+          key,
+          title: entry.at("title", default: ""),
+          note: entry.at("note", default: none),
+          long: entry.at("long", default: ""),
+          short: entry.at("short", default: ""),
+        )
+      } else if type(entry) == str {
+        glossary-entry(key, long: entry)
+      }
     }
   }
 }
@@ -56,7 +68,7 @@
 
 #let __format_number(number, pattern) = {
   if pattern == none {
-    return str(number)
+    return str(number) + "."
   }
 
   let pattern-str = if type(pattern) == str {

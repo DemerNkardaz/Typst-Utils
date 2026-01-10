@@ -10,6 +10,7 @@
 #import "modules/dictionary.typ" as Dict
 #import "modules/typographics.typ" as Typographics
 #import "modules/supplementary-syntax.typ" as Supplementary-Syntax
+#import "modules/layout.typ" as Layout-Data
 
 #import "setups/base.typ" as Base
 
@@ -42,7 +43,6 @@
 
 #show: Glossary.init.with(
   glossary-number-style-in-text: "^[1]",
-  glossary-number-style: "1.",
   sources: "/assets/data/glossary.yml",
 )
 
@@ -69,7 +69,6 @@ This is A with Breve and Acute: «#chr.a-with-breve-and-acute»
 $
   №_(lambda^(4_0))
 $
-
 
 В период Эдо сёгун@Сёгун правил страной, опираясь на даймё@Даймё.
 Военное сословие самураев@Самурай служило феодалам.
