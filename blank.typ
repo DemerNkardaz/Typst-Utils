@@ -15,16 +15,13 @@
 
 /* Base variables and constants */
 
-#let meta = yaml("assets/data/meta.yml")
-#let book = yaml("assets/data/book.yml")
+#let meta = yaml("/assets/data/meta.yml")
+#let book = yaml("/assets/data/book.yml")
 
 #let project = (
   lang: meta.at("language[ISO-639]"),
   base-font-size: 11pt,
-  base-font: Fonts-Utils.getFonts(
-    type: "serif",
-    // primaryFont: "PlayFair Display",
-  ),
+  base-font: Fonts-Utils.get-fonts(type: "serif"),
 )
 
 /* Sets */
@@ -46,7 +43,7 @@
 #show: Glossary.init.with(
   glossary-number-style-in-text: "^[1]",
   glossary-number-style: "1.",
-  sources: "../assets/data/glossary.yml",
+  sources: "/assets/data/glossary.yml",
 )
 
 /* Document */
@@ -55,17 +52,17 @@
 
 *Автор:* #meta.author \ *Версия:* #meta.version
 
-#Misc.placeCopyright(meta.author, meta.year)
+#Misc.place-copyright(meta.author, meta.year)
 
 
 #include "content/chapters/chapter-1.typ"
 
 
-#Fonts-Utils.getFonts(type: "serif", primaryFont: "PlayFair Display")
+#Fonts-Utils.get-fonts(type: "serif", primaryFont: "PlayFair Display")
 
 This is Em-Space: «#chr.emsp» \
 
-This is A with Breve and Acute: «#chr.a_with_breve_and_acute»
+This is A with Breve and Acute: «#chr.a-with-breve-and-acute»
 
 #qr-code("https://typst.app/")
 
@@ -79,7 +76,7 @@ $
 
 \
 
-#Dict.getTerm("Сёгун")
+#Dict.get-term("Сёгун")
 
 fi fl ffl VV 1234567890
 

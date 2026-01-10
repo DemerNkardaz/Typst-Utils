@@ -1,9 +1,6 @@
-#import "utils.typ": makeDictCI
-#import "text_locale.typ": apply as Text-Locale
-
 #let data = yaml("../assets/data/glossary.yml")
 
-#let getTerm(termLabel) = {
+#let get-term(termLabel) = {
   let searchKey = lower(termLabel)
   let termString = data.at(searchKey, default: none)
 

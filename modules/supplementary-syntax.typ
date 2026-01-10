@@ -27,7 +27,7 @@
       Text-Locale.apply(
         lang: lower(lang),
         font: font,
-      )[ #content ]
+      )[#content]
     },
   ),
 )

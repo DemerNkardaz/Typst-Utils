@@ -1,7 +1,7 @@
 /*
  * Case-Insensitive Dictionary
  */
-#let makeDictCI(dict) = {
+#let make-ci-dict(dict) = {
   let lookup = (:)
 
   for (k, v) in dict {

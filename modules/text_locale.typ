@@ -1,6 +1,6 @@
 #import "font_utils.typ": localeFonts
 
-#let getFont(lang, index) = {
+#let get-font(lang, index) = {
   let langFonts = localeFonts.at(lang, default: none)
 
   if langFonts != none {
@@ -16,7 +16,7 @@
   if type(font) == str {
     fontValue = font
   } else if type(font) == int {
-    fontValue = getFont(lang, font)
+    fontValue = get-font(lang, font)
   }
 
   let args = (lang: lang)

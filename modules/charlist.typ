@@ -31,5 +31,5 @@
   zwj: "\u{200C}", // Zero Width Joiner
   zwnj: "\u{200D}", // Zero Width Non-Joiner
   // Just for test
-  a_with_breve_and_acute: "\u{1EAF}", // ấ
+  a-with-breve-and-acute: "\u{1EAF}", // ấ
 )

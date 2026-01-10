@@ -1,4 +1,4 @@
-#let defaultFonts = (
+#let default-fonts = (
   serif: (
     "Noto Serif",
     "Noto Serif JP",
@@ -23,18 +23,18 @@
   "zh": ("Noto Serif SC", "Noto Sans SC"),
 )
 
-#let getFonts(type: "sans-serif", primaryFont: none) = {
+#let get-fonts(type: "sans-serif", primaryFont: none) = {
   let output = ()
 
   if primaryFont != none {
     output.push(primaryFont)
   }
 
-  for font in defaultFonts.at(type) {
+  for font in default-fonts.at(type) {
     output.push(font)
   }
 
-  for font in defaultFonts.at("single-style") {
+  for font in default-fonts.at("single-style") {
     output.push(font)
   }
 
