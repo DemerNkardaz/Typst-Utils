@@ -2,11 +2,13 @@
 
 #let init(body) = {
   set page(
+    width: layout-get("page.width"),
+    height: layout-get("page.height"),
     margin: (
-      top: layout-get("top-margin"),
-      bottom: layout-get("bottom-margin"),
-      inside: layout-get("inside-margin"),
-      outside: layout-get("outside-margin"),
+      top: layout-get("page.top-margin"),
+      bottom: layout-get("page.bottom-margin"),
+      inside: layout-get("page.inside-margin"),
+      outside: layout-get("page.outside-margin"),
     ),
     footer: context [
       #set align(right)
@@ -22,6 +24,7 @@
     leading: 0.65em,
     spacing: 0.65em,
     linebreaks: "optimized",
+    first-line-indent: layout-get("first-line-indent"),
   )
   set text(
     hyphenate: true,

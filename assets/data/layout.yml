@@ -3,13 +3,17 @@ mode: web
 meta:
   format: 70×108 1/16
 default:
-  page-width: 160mm
-  page-height: 270mm
-  top-margin: 21mm
-  bottom-margin: 21mm
+  page:
+    width: 170mm
+    height: 260mm
+    top-margin: 21mm
+    bottom-margin: 21mm
+  first-line-indent: 5mm
 web:
-  inside-margin: 21mm
-  outside-margin: 21mm
+  page:
+    inside-margin: 21mm
+    outside-margin: 21mm
 print:
-  inside-margin: 16mm
-  outside-margin: 26mm
+  page:
+    inside-margin: 16mm
+    outside-margin: 26mm

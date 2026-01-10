@@ -27,10 +27,6 @@
 
 /* Sets */
 
-#set page(width: 175mm, height: 270mm)
-
-#set par(first-line-indent: 1.25cm)
-
 #set text(
   lang: project.lang,
   font: project.base-font,
