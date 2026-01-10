@@ -5,23 +5,23 @@
 #import "modules/charlist.typ": *
 #import "modules/glossary.typ" as Glossary
 #import "modules/misc.typ" as Misc
-#import "modules/font_utils.typ" as FontUtils
-#import "modules/text_locale.typ" as TextLocale
+#import "modules/font_utils.typ" as Fonts-Utils
+#import "modules/text_locale.typ" as Text-Locale
 #import "modules/dictionary.typ" as Dict
 #import "modules/typographics.typ" as Typographics
+#import "modules/supplementary-syntax.typ" as Supplementary-Syntax
 
 #import "setups/base.typ" as Base
 
 /* Base variables and constants */
-
 
 #let meta = yaml("assets/data/meta.yml")
 #let book = yaml("assets/data/book.yml")
 
 #let project = (
   lang: meta.at("language[ISO-639]"),
-  baseFontSize: 11pt,
-  baseFont: FontUtils.getFonts(
+  base-font-size: 11pt,
+  base-font: Fonts-Utils.getFonts(
     type: "serif",
     // primaryFont: "PlayFair Display",
   ),
@@ -35,12 +35,12 @@
 
 #set text(
   lang: project.lang,
-  font: project.baseFont,
-  size: project.baseFontSize,
+  font: project.base-font,
+  size: project.base-font-size,
 )
 
 #show: Base.init
-#show: Dict.applyHandle
+#show: Supplementary-Syntax.apply
 #show: Typographics.apply.with(lang: project.lang)
 
 #show: Glossary.init.with(
@@ -61,7 +61,7 @@
 #include "content/chapters/chapter-1.typ"
 
 
-#FontUtils.getFonts(type: "serif", primaryFont: "PlayFair Display")
+#Fonts-Utils.getFonts(type: "serif", primaryFont: "PlayFair Display")
 
 This is Em-Space: «#chr.emsp» \
 
@@ -117,7 +117,7 @@ fi fl ffl VV 1234567890
 
 // Это пример текста с японским вставленным посреди него: #text(font: "Noto Serif JP", lang: "ja")[こんにちは、世界！]
 Это пример текста с японским вставленным посреди него:
-#TextLocale.apply(lang: "ja", font: 0)[こんにちは、世界！]
+#Text-Locale.apply(lang: "ja", font: 0)[こんにちは、世界！]
 
 \
 \
