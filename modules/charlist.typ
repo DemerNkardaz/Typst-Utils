@@ -2,11 +2,47 @@
  * Character List Module
  * A collection of special characters for easy reference in Typst documents.
  */
-#let chr = (
+#let list = (
   c: (
     acute: "\u{0301}",
     breve: "\u{0306}",
     cedilla: "\u{0327}",
+  ),
+  lig: (
+    AA: "\u{A732}",
+    aa: "\u{A733}",
+    AE: "\u{00C6}",
+    ae: "\u{00E6}",
+    AO: "\u{A734}",
+    ao: "\u{A735}",
+    AU: "\u{A736}",
+    au: "\u{A737}",
+    AV: "\u{A738}",
+    av: "\u{A739}",
+    AY: "\u{A73C}",
+    ay: "\u{A73D}",
+    db: "\u{0238}",
+    ie: "\u{AB61}",
+    ff: "\u{FB00}",
+    fi: "\u{FB01}",
+    fl: "\u{FB02}",
+    ffi: "\u{FB04}",
+    ffl: "\u{FB03}",
+    IJ: "\u{0132}",
+    ij: "\u{0133}",
+    OE: "\u{0152}",
+    oe: "\u{0153}",
+    OO: "\u{A74E}",
+    oo: "\u{A74F}",
+    OU: "\u{0222}",
+    ou: "\u{0223}",
+    qp: "\u{0239}",
+    ſt: "\u{FB05}",
+    st: "\u{FB06}",
+    ue: "\u{1D6B}",
+    uo: "\u{AB63}",
+    VY: "\u{A760}",
+    vy: "\u{A761}",
   ),
   tab: "\u{0009}", // Tab
   sp: "\u{0020}", // Space
@@ -33,3 +69,7 @@
   // Just for test
   a-with-breve-and-acute: "\u{1EAF}", // ấ
 )
+
+#let ligature(content) = {
+  list.lig.at(content, default: content)
+}

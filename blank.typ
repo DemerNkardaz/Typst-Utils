@@ -44,9 +44,9 @@
 
 #Fonts-Utils.get-fonts(type: "serif", primaryFont: "PlayFair Display")
 
-This is Em-Space: «#chr.emsp» \
+This is Em-Space: «#Chrs.list.emsp» \
 
-This is A with Breve and Acute: «#chr.a-with-breve-and-acute»
+This is A with Breve and Acute: «#Chrs.list.a-with-breve-and-acute»
 
 #qr-code("https://typst.app/")
 
@@ -98,6 +98,9 @@ fi fl ffl VV 1234567890
 Это пример текста с японским вставленным посреди него:
 #Text-Locale.apply(lang: "ja")[こんにちは、世界！]
 
+#sym.hat(Chrs.ligature("OE"))
+#sym.grave(sym.caron(Chrs.ligature("ue")))
+
 #Utils.include-with-context(
   (
     pagebreak,
@@ -108,4 +111,5 @@ fi fl ffl VV 1234567890
     "/include/part-glossary.typ",
   ),
   Glossary: Glossary,
+  Chrs: Chrs,
 )

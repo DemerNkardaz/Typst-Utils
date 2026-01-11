@@ -1,4 +1,4 @@
-#import "/modules/charlist.typ": *
+#import "/modules/charlist.typ" as Chrs
 #import "/modules/glossary.typ" as Glossary
 #import "/modules/misc.typ" as Misc
 #import "/modules/font-utils.typ" as Fonts-Utils
