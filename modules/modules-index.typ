@@ -8,3 +8,17 @@
 #import "/modules/supplementary-syntax.typ" as Supplementary-Syntax
 #import "/modules/layout.typ" as Layout-Data
 #import "/modules/utils.typ" as Utils
+
+
+#let modules-export = (
+  Chrs: Chrs,
+  Glossary: Glossary,
+  Misc: Misc,
+  Fonts-Utils: Fonts-Utils,
+  Text-Locale: Text-Locale,
+  Dict: Dict,
+  Typographics: Typographics,
+  Supplementary-Syntax: Supplementary-Syntax,
+  Layout-Data: Layout-Data,
+  Utils: Utils,
+)

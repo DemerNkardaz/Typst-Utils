@@ -100,16 +100,15 @@ fi fl ffl VV 1234567890
 
 #sym.hat(Chrs.ligature("OE"))
 #sym.grave(sym.caron(Chrs.ligature("ue")))
+#sym.hat("О")иси Ёсио Кураносукэ
 
-#Utils.include-with-context(
-  (
-    pagebreak,
-    "/include/chapters/chapter-1.typ",
-    linebreak,
-    "/include/chapters/chapter-1.typ",
-    pagebreak,
-    "/include/part-glossary.typ",
-  ),
-  Glossary: Glossary,
-  Chrs: Chrs,
+#let includable-pages = (
+  pagebreak,
+  "/include/chapters/chapter-1.typ",
+  linebreak,
+  "/include/chapters/chapter-1.typ",
+  pagebreak,
+  "/include/part-glossary.typ",
 )
+
+#Utils.include-with-context(includable-pages, ..modules-export)

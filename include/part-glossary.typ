@@ -1,3 +1,4 @@
+= Глоссарий
 #Glossary.print()
 \ \
 #let a = 25 + 25
