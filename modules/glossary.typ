@@ -5,6 +5,28 @@
   glossary-number-style: none,
 ))
 
+#let key-aliases = (
+  key: ("ключ",),
+  title: ("заголовок", "загл", "название", "назв"),
+  long: ("description", "описание", "длинное", "длин"),
+  short: ("короткое", "кор", "краткое", "крат"),
+  note: ("заметка", "зам"),
+)
+
+#let get-key-from-alias(alias) = {
+  let alias-lower = lower(alias)
+  let result = key-aliases
+    .pairs()
+    .find(pair => {
+      alias-lower in pair.at(1).map(a => lower(a))
+    })
+
+  if result != none {
+    return result.at(0)
+  }
+  return none
+}
+
 #let process-markup(text) = {
   if type(text) == str and text != "" {
     let parts = text.split("\n")
@@ -55,12 +77,28 @@
 
     for (key, entry) in data {
       if type(entry) == dictionary {
+        // Нормализуем ключи через алиасы
+        let normalized-entry = (:)
+
+        for (entry-key, entry-value) in entry {
+          let canonical-key = get-key-from-alias(entry-key)
+          if canonical-key != none {
+            normalized-entry.insert(canonical-key, entry-value)
+          } else if entry-key in key-aliases.keys() {
+            // Ключ уже канонический
+            normalized-entry.insert(entry-key, entry-value)
+          } else {
+            // Неизвестный ключ - игнорируем или можно выдать предупреждение
+            normalized-entry.insert(entry-key, entry-value)
+          }
+        }
+
         glossary-entry(
           key,
-          title: entry.at("title", default: ""),
-          note: entry.at("note", default: none),
-          long: entry.at("long", default: ""),
-          short: entry.at("short", default: ""),
+          title: normalized-entry.at("title", default: ""),
+          note: normalized-entry.at("note", default: none),
+          long: normalized-entry.at("long", default: ""),
+          short: normalized-entry.at("short", default: ""),
         )
       } else if type(entry) == str {
         glossary-entry(key, long: entry)
