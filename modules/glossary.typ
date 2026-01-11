@@ -5,21 +5,43 @@
   glossary-number-style: none,
 ))
 
+#let process-markup(text) = {
+  if type(text) == str and text != "" {
+    let parts = text.split("\n")
+
+    if parts.len() == 1 {
+      return eval(text, mode: "markup")
+    }
+
+    let result = []
+    for (i, part) in parts.enumerate() {
+      if part.trim() != "" or i == 0 {
+        result += eval(part, mode: "markup")
+      }
+      if i < parts.len() - 1 {
+        result += linebreak()
+      }
+    }
+    result
+  } else {
+    text
+  }
+}
+
 #let glossary-entry(key, title: "", note: none, long: "", short: "") = {
   glossary-state.update(entries => {
     entries.insert(key, (
       key: key,
-      title: if title == "" { key } else { title },
-      note: note,
-      long: long,
-      short: if short == "" { long } else { short },
+      title: if title == "" { key } else { process-markup(title) },
+      note: if note != none { process-markup(note) } else { none },
+      long: process-markup(long),
+      short: if short == "" { process-markup(long) } else { process-markup(short) },
     ))
     entries
   })
 }
 
 #let load(paths) = {
-  // Нормализуем входные данные: если передана строка, делаем массив
   let paths-array = if type(paths) == str {
     (paths,)
   } else if type(paths) == array {
@@ -28,7 +50,6 @@
     panic("load() принимает строку (путь) или массив строк (пути)")
   }
 
-  // Загружаем все файлы по очереди
   for path in paths-array {
     let data = yaml(path)
 
@@ -162,14 +183,17 @@
           {
             set par(hanging-indent: 1em, first-line-indent: -1em)
 
-            [#strong(entry.title)]
+            [#strong[#entry.title]]
 
             if entry.note != none {
               [ (#entry.note)]
             }
 
-            if entry.long != "" {
+            if entry.long != "" and type(entry.long) != content {
               [ — #entry.long]
+            } else if type(entry.long) == content {
+              [ — ]
+              entry.long
             }
           },
         )
