@@ -1,18 +1,8 @@
 /* Imports */
 
-#import "@preview/rustycure:0.2.0": qr-code
-
-#import "modules/charlist.typ": *
-#import "modules/glossary.typ" as Glossary
-#import "modules/misc.typ" as Misc
-#import "modules/font-utils.typ" as Fonts-Utils
-#import "modules/text-locale.typ" as Text-Locale
-#import "modules/dictionary.typ" as Dict
-#import "modules/typographics.typ" as Typographics
-#import "modules/supplementary-syntax.typ" as Supplementary-Syntax
-#import "modules/layout.typ" as Layout-Data
-
-#import "setups/base.typ" as Base
+#import "/packages/packages-index.typ": *
+#import "/modules/modules-index.typ": *
+#import "/settings/settings-index.typ": *
 
 /* Base variables and constants */
 
@@ -50,9 +40,7 @@
 
 #Misc.place-copyright(meta.author, meta.year)
 
-
-#include "content/chapters/chapter-1.typ"
-
+#include "/include/chapters/chapter-1.typ"
 
 #Fonts-Utils.get-fonts(type: "serif", primaryFont: "PlayFair Display")
 
@@ -107,16 +95,17 @@ fi fl ffl VV 1234567890
 
 Тестовый #text(fill: blue)[синий текст] и обычный текст.
 
-// Это пример текста с японским вставленным посреди него: #text(font: "Noto Serif JP", lang: "ja")[こんにちは、世界！]
 Это пример текста с японским вставленным посреди него:
-#Text-Locale.apply(lang: "ja", font: 0)[こんにちは、世界！]
+#Text-Locale.apply(lang: "ja")[こんにちは、世界！]
 
-\
-\
-\
-
-
-// Это пример текста с японским вставленным посреди него: こんにちは、世界！
-// #bibliography("assets/data/dictionary.yml", style: "glossary.csl", title: "Глоссарий")
-
-#Glossary.print()
+#Utils.include-with-context(
+  (
+    pagebreak,
+    "/include/chapters/chapter-1.typ",
+    linebreak,
+    "/include/chapters/chapter-1.typ",
+    pagebreak,
+    "/include/part-glossary.typ",
+  ),
+  Glossary: Glossary,
+)

@@ -39,3 +39,23 @@
 
   return content
 }
+
+#let include-with-context(items, ..scopeContext) = {
+  let scope = scopeContext.named()
+
+  let item-list = if type(items) == array {
+    items
+  } else {
+    (items,)
+  }
+
+  for item in item-list {
+    if type(item) == str {
+      eval(read(item), mode: "markup", scope: scope)
+    } else if type(item) == function {
+      item()
+    } else {
+      item
+    }
+  }
+}
