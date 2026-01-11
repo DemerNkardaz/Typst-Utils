@@ -31,7 +31,7 @@
       outside: layout-get("page.margin.outside"),
     ),
     footer: context [
-      #set align(right)
+      #set align(center)
       #set text(8pt)
       #counter(page).display(
         "1 | 1",

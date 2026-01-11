@@ -24,19 +24,9 @@
 )
 
 #let get-fonts(type: "sans-serif", primaryFont: none) = {
-  let output = ()
-
-  if primaryFont != none {
-    output.push(primaryFont)
-  }
-
-  for font in default-fonts.at(type) {
-    output.push(font)
-  }
-
-  for font in default-fonts.at("single-style") {
-    output.push(font)
-  }
-
-  return output
+  (
+    if primaryFont != none { primaryFont },
+    ..default-fonts.at(type, default: ()),
+    ..default-fonts.at("single-style", default: ()),
+  ).filter(it => it != none)
 }

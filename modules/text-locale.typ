@@ -1,4 +1,4 @@
-#import "font_utils.typ": localeFonts
+#import "font-utils.typ": localeFonts
 
 #let get-font(lang, index) = {
   let langFonts = localeFonts.at(lang, default: none)
