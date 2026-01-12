@@ -4,19 +4,16 @@
 
 #let rules = (
   text-locale: (
-    pattern: regex("<\\|\\[([A-Z]{2,3})\\](?:\\[([^\\]]+)\\])?\\|\\[\\'([^{}]*?)\\'\\]>"),
+    pattern: regex("<:([A-Z]{2,3})(?:,([^,'\\']+))?,\\'([^']*)\\'\\:>"),
     replace: match => {
-      let captures = match
-        .text
-        .match(regex("<\\|\\[([A-Z]{2,3})\\](?:\\[([^\\]]+)\\])?\\|\\[\\'([^{}]*?)\\'\\]>"))
-        .captures
+      let captures = match.text.match(regex("<:([A-Z]{2,3})(?:,([^,'\\']+))?,\\'([^']*)\\'\\:>")).captures
 
       let lang = captures.at(0)
       let font-str = captures.at(1)
       let content = captures.at(2)
 
       let font = if font-str != none and font-str != "" {
-        let cleaned = font-str.trim("\"").trim("'")
+        let cleaned = font-str.trim().trim("\"").trim("'")
         if cleaned.match(regex("^\\d+$")) != none {
           int(cleaned)
         } else {
@@ -44,9 +41,9 @@
     },
   ),
   no-break: (
-    pattern: regex("\\|\\[([^|]+)\\]\\|"),
+    pattern: regex("\\|\\[((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\]\\|"),
     replace: match => {
-      let captures = match.text.match(regex("\\|\\[([^|]+)\\]\\|")).captures
+      let captures = match.text.match(regex("\\|\\[((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\]\\|")).captures
 
       let content = captures.at(0)
 
