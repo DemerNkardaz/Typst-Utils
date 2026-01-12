@@ -1,8 +1,3 @@
-// Advanced Ruby Annotations Module for Typst 0.13+
-// Supports multiple use cases: furigana, phonetics, translations, glosses, etc.
-// INLINE VERSION - can be embedded within text flow
-
-// Main ruby function with comprehensive options
 #let ruby(
   base,
   annotation: none,
@@ -42,7 +37,6 @@
     (base, annotation)
   }
 
-  // Validation
   assert(
     ("center", "start", "end", "between", "around", "justify").contains(alignment),
     message: "alignment must be one of: center, start, end, between, around, justify",
@@ -50,7 +44,6 @@
 
   let is-top = if type(pos) == length { true } else { pos == top }
 
-  // Helper: extract text content
   let extract-text(content) = {
     if type(content) == str {
       return content
@@ -83,7 +76,6 @@
     return r
   }
 
-  // Split text by delimiter if auto-split is enabled
   let split-content(content) = {
     if not auto-split { return (content,) }
     let text-str = extract-text(content)
@@ -231,12 +223,20 @@
       sum-body += if l { h(l-dx) } + base-styled + if r { h(r-dx) }
     }
 
-    // Return inline content
     sum-body
   }))
 }
 
 // Convenience presets
+#let tip(base, reading, ..args) = ruby(
+  base,
+  reading,
+  anno-size: 0.5em,
+  gap: 0.05em,
+  alignment: "center",
+  ..args,
+)
+
 #let furigana(base, reading, ..args) = ruby(
   base,
   reading,
@@ -282,7 +282,6 @@
   }
 }
 
-// Batch processing helper
 #let ruby-text(content, rules: (:)) = {
   let result = content
   for (base, anno) in rules {
@@ -291,7 +290,6 @@
   result
 }
 
-// Line-by-line ruby (useful for poetry, lyrics)
 #let ruby-lines(..lines) = {
   let pairs = lines.pos()
   stack(
