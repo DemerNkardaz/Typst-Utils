@@ -4,20 +4,25 @@
 
 #let rules = (
   text-locale: (
-    pattern: regex("<:([A-Z]{2,3})(?:,([^,'\\']+))?,\\'([^']*)\\'\\:>"),
+    pattern: regex("tl'([A-Z]{2,3})'([^']*)'(?:([^']*)')?"),
     replace: match => {
-      let captures = match.text.match(regex("<:([A-Z]{2,3})(?:,([^,'\\']+))?,\\'([^']*)\\'\\:>")).captures
+      let captures = match.text.match(regex("tl'([A-Z]{2,3})'([^']*)'(?:([^']*)')?")).captures
 
       let lang = captures.at(0)
-      let font-str = captures.at(1)
-      let content = captures.at(2)
+      let second = captures.at(1)
+      let third = captures.at(2)
+
+      let (font-str, content) = if third != none and third != "" {
+        (second, third)
+      } else {
+        (none, second)
+      }
 
       let font = if font-str != none and font-str != "" {
-        let cleaned = font-str.trim().trim("\"").trim("'")
-        if cleaned.match(regex("^\\d+$")) != none {
-          int(cleaned)
+        if font-str.match(regex("^\\d+$")) != none {
+          int(font-str)
         } else {
-          cleaned
+          font-str
         }
       } else {
         0
@@ -30,9 +35,9 @@
     },
   ),
   rotate: (
-    pattern: regex("\\((\\d+deg):([^\\]]+)\\)"),
+    pattern: regex("(\\d+deg)\\s@\\s([^\\]]+)"),
     replace: match => {
-      let captures = match.text.match(regex("\\((\\d+deg):([^\\]]+)\\)")).captures
+      let captures = match.text.match(regex("(\\d+deg)\\s@\\s([^\\]]+)")).captures
 
       let degree-value = captures.at(0)
       let content = captures.at(1)
@@ -41,9 +46,9 @@
     },
   ),
   no-break: (
-    pattern: regex("\\|\\[((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\]\\|"),
+    pattern: regex("\\|\\[\\s((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\s\\]\\|"),
     replace: match => {
-      let captures = match.text.match(regex("\\|\\[((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\]\\|")).captures
+      let captures = match.text.match(regex("\\|\\[\\s((?:[^\\[\\]|]|\\[[^\\]]*\\])*)\\s\\]\\|")).captures
 
       let content = captures.at(0)
 
