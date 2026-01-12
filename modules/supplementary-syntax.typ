@@ -32,10 +32,21 @@
       )[#content]
     },
   ),
-  no-break: (
-    pattern: regex("\\|\\[([^\\]]+)\\]\\|"),
+  rotate: (
+    pattern: regex("\\((\\d+deg):([^\\]]+)\\)"),
     replace: match => {
-      let captures = match.text.match(regex("\\|\\[([^\\]]+)\\]\\|")).captures
+      let captures = match.text.match(regex("\\((\\d+deg):([^\\]]+)\\)")).captures
+
+      let degree-value = captures.at(0)
+      let content = captures.at(1)
+
+      rotate(eval(degree-value))[#content]
+    },
+  ),
+  no-break: (
+    pattern: regex("\\|\\[([^|]+)\\]\\|"),
+    replace: match => {
+      let captures = match.text.match(regex("\\|\\[([^|]+)\\]\\|")).captures
 
       let content = captures.at(0)
 
