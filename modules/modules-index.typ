@@ -6,6 +6,7 @@
 #import "/modules/dictionary.typ" as Dict
 #import "/modules/typographics.typ" as Typographics
 #import "/modules/supplementary-syntax.typ" as Supplementary-Syntax
+#import "/modules/ruby-text.typ" as Ruby-Text
 #import "/modules/layout.typ" as Layout-Data
 #import "/modules/utils.typ" as Utils
 
@@ -20,5 +21,6 @@
   Typographics: Typographics,
   Supplementary-Syntax: Supplementary-Syntax,
   Layout-Data: Layout-Data,
+  Ruby-Text: Ruby-Text,
   Utils: Utils,
 )

@@ -6,11 +6,11 @@
 
 /* Base variables and constants */
 
-#let meta = yaml("/assets/data/meta.yml")
-#let book = yaml("/assets/data/book.yml")
+#let meta-data = yaml("/assets/data/meta.yml")
+#let book-data = yaml("/assets/data/book.yml")
 
 #let project = (
-  lang: meta.at("language[ISO-639]"),
+  lang: meta-data.at("language[ISO-639]"),
   base-font-size: 11pt,
   base-font: Fonts-Utils.get-fonts(type: "serif"),
 )
@@ -34,11 +34,11 @@
 
 /* Document */
 
-= #meta.title
+= #meta-data.title
 
-*Автор:* #meta.author \ *Версия:* #meta.version
+*Автор:* #meta-data.author \ *Версия:* #meta-data.version
 
-#Misc.place-copyright(meta.author, meta.year)
+#Misc.place-copyright(meta-data.author, meta-data.year)
 
 #include "/include/chapters/chapter-1.typ"
 
@@ -65,9 +65,50 @@ fi fl ffl VV 1234567890
 
 #lorem(90)
 
+\
+\
+
+
+Самура́й (яп. #Ruby-Text.furigana(adjust-line-height: 10pt)[侍][さむらい], по-японски также используется слово «буси», #Ruby-Text.furigana[武士][ぶ|し]) — в феодальной Японии — светские феодалы-мужчины, начиная от крупных владетельных князей (даймё) и заканчивая мелкими дворянами; в узком и наиболее часто употребляемом значении — военно-феодальное сословие мелких дворян. Хотя слова «самурай» и «буси» очень близки по значению, всё же «бу» (воин) — более широкое понятие, и оно не всегда относится к самураю. Часто проводят аналогию между самураями и европейским средневековым рыцарством, но такое сравнение во многом неверно. Женщины самурайского сословия, владевшие оружием, именовались онна-бугэйся.
+\
+\
+
+Даймё (яп. #Ruby-Text.furigana(adjust-line-height: 10pt)[大|名][だい|みょう], даймё:, букв. «большое имя») — крупнейшие военные феодалы средневековой Японии. Если считать, что класс самураев был элитой японского общества X—XIX веков, то даймё — элита среди самураев.
+
+\
+
+а#Ruby-Text.furigana[漢字][かんじ]а
+#Ruby-Text.furigana[諸具][Shōgun]
+#Ruby-Text.furigana("諸|具", "Shō|Gun")
+#Ruby-Text.furigana[諸|具][Shōasfasfsfaf|Gun]
+#Ruby-Text.furigana[諸|具][Shō|Gun]
+#Ruby-Text.gloss[諸|具][Shō|Gun]
+\ \
+#Ruby-Text.ruby()[東|京|工|業|大|学][とう|きょう|こう|ぎょう|だい|がく]
+
+\
+\
+
+#let ruby = get-ruby(
+  size: 0.45em,
+  dy: 0pt,
+  pos: top,
+  alignment: "center",
+  delimiter: "|",
+  auto-spacing: true,
+)
+\
+\
+#ruby[Shōывывыв|Gun][諸|具]\
+#ruby[ふりがな][振り仮名]\
+#ruby[とう|きょう|こう|ぎょう|だい|がく][東|京|工|業|大|学]\
+#ruby("漢字", "かんじ")
+#ruby("美しい", "うつくしい")
+\
+\
 
 *Библиографическая информация:*\
-#book.at("Библиографическая информация") \ \ #book
+#book-data.at("Библиографическая информация") \ \ #book-data
 
 
 === Проверка висячей пунктуации
