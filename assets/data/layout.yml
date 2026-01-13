@@ -2,6 +2,53 @@ mode: default(web)
 meta:
   format: 70×108 1/16
 default:
+  page:
+    # https://typst.app/docs/reference/layout/page/#parameters-paper
+    # “custom” for customizable width and height or paper variant from link above
+    paper: custom
+    size: 170 × 260 in mm
+    # or (width: 170mm, height: 260mm)
+    margin: 21mm
+    # or “top”, “bottom”, “inside” and “outside” inside the “margin” key
+  paragraph:
+    justification:
+      enabled: true
+      spacing:
+        min: 85%
+        max: 130%
+      tracking:
+        min: -0.05em
+        max: 0.025em
+      glyph-scale: # currently unavailable
+        min: 97%
+        max: 102%
+    spacing: 1em
+    leading: 1em
+    first-line-indent:
+      amount: 5mm
+      all: false
+    indent:
+      first-line:
+        amount: 5mm
+        all: false
+      hanging: 0pt
+    widows: 2
+    orphans: 2
+    overhang: true
+    hyphenation:
+      enabled: auto
+      min-length: 7  # currently unavailable
+      min-after: 3
+      min-before: 4
+      consecutive-limit: 3
+  text:
+    kerning: true
+    ligatures: true
+    number-type: lining
+    number-width: tabular
+    edge:
+      top: x-height
+      bottom: baseline
   font:
     family: false
     fallback: 
@@ -14,21 +61,8 @@ default:
       - Noto Serif Tangut
       - Noto Serif Khitan Small Script
       - Noto Sans Nushu
-    size: 11.5pt
+    size: 10pt
     footnote-size: 9pt
-  page:
-    # https://typst.app/docs/reference/layout/page/#parameters-paper
-    # “custom” for customizable width and height or paper variant from link above
-    paper: custom
-    # “size” contains width and height parameters both
-    # (size: 170 × 260 in mm)    
-    # you can use “width” and “height” keys instead
-    # (width: 170mm, height: 260mm)
-    size: 170 × 260 in mm
-    # you can define “margin” with single value
-    # or use “top”, “bottom”, “inside” and “outside” inside the “margin” key
-    margin: 21mm
-  first-line-indent: 5mm
 print:
   page:
     margin:

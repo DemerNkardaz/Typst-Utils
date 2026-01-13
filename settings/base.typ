@@ -40,19 +40,43 @@
     ],
   )
   set par(
-    justify: true,
-    leading: 0.65em,
-    spacing: 0.65em,
+    justify: layout-get("paragraph.justification.enabled"),
+    justification-limits: (
+      spacing: (
+        min: layout-get("paragraph.justification.spacing.min"),
+        max: layout-get("paragraph.justification.spacing.max"),
+      ),
+      tracking: (
+        min: layout-get("paragraph.justification.tracking.min"),
+        max: layout-get("paragraph.justification.tracking.max"),
+      ),
+    ),
+    leading: layout-get("paragraph.leading"),
+    spacing: layout-get("paragraph.spacing"),
+    first-line-indent: (
+      amount: layout-get("paragraph.indent.first-line.amount"),
+      all: layout-get("paragraph.indent.first-line.all"),
+    ),
+    hanging-indent: layout-get("paragraph.indent.hanging"),
     linebreaks: "optimized",
-    first-line-indent: layout-get("first-line-indent"),
   )
   set text(
     size: layout-get("font.size"),
-    hyphenate: true,
-    overhang: true,
-    ligatures: true,
+    hyphenate: layout-get("paragraph.hyphenation.enabled"),
+    overhang: layout-get("paragraph.overhang"),
+    ligatures: layout-get("text.ligatures"),
+    // costs: (
+    //   hyphenation: 100%,
+    //   runt: 100%,
+    //   widow: 100%,
+    //   orphan: 100%,
+    // ),
     historical-ligatures: true,
-    number-type: "lining",
+    kerning: layout-get("text.kerning"),
+    number-type: layout-get("text.number-type"),
+    number-width: layout-get("text.number-width"),
+    top-edge: layout-get("text.edge.top"),
+    bottom-edge: layout-get("text.edge.bottom"),
   )
 
   body

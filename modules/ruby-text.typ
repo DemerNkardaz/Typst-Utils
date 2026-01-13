@@ -5,7 +5,7 @@
   alignment: "center", // center, start, end, between, around, justify
   anno-size: 0.5em, // annotation text size
   base-size: none, // override base text size
-  gap: 0.15em, // vertical gap between base and annotation
+  gap: 0.3em, // vertical gap between base and annotation
   side-bearing: 0.05em, // extra space on sides when annotation is wider
   auto-spacing: true, // automatically add spacing when annotation overflows
   annotation-style: none, // function to apply to annotation (e.g., emph, text.with(fill: red))
@@ -348,8 +348,8 @@
 #let tip(base, reading, ..args) = ruby(
   base,
   reading,
-  anno-size: 0.5em,
-  gap: 0.05em,
+  anno-size: 0.55em,
+  gap: 0.25em,
   alignment: "center",
   auto-spacing: false,
   anno-wrapper: "( * )",
@@ -359,7 +359,7 @@
 #let furigana(base, reading, ..args) = ruby(
   base,
   reading,
-  anno-size: 0.5em,
+  anno-size: 0.6em,
   alignment: "center",
   ..args,
 )

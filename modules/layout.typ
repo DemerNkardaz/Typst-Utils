@@ -35,17 +35,17 @@
     }
   }
 
-  // Обработка строковых значений
   if value != none and type(value) == str {
     if value.match(regex(regex-rules.w-s-unit)) != none {
       return parse-parameters(value)
     }
 
-    let starts-from-digit = value.match(regex("^\\d")) != none
+    let word-parameter = value.match(regex("^(auto|none)$")) != none
+    let starts-with-number = value.match(regex("^-?\\d")) != none
     let has-units = value.match(regex("\\d+(pt|mm|cm|in|em|%|deg|rad|fr)")) != none
     let has-operators = value.match(regex("\\s[+\\-*/]\\s")) != none
 
-    if starts-from-digit and (has-units or has-operators) {
+    if word-parameter or (starts-with-number and (has-units or has-operators)) {
       return eval(value)
     }
   }
