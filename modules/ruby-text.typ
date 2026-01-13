@@ -1,37 +1,27 @@
 #let ruby(
   base,
   annotation: none,
-  // Positioning
   pos: top, // top, bottom, or specific length
   alignment: "center", // center, start, end, between, around, justify
-  // Sizing
   anno-size: 0.5em, // annotation text size
   base-size: none, // override base text size
-  // Spacing
   gap: 0.15em, // vertical gap between base and annotation
   side-bearing: 0.05em, // extra space on sides when annotation is wider
   auto-spacing: true, // automatically add spacing when annotation overflows
-  // Styling
   annotation-style: none, // function to apply to annotation (e.g., emph, text.with(fill: red))
   base-style: none, // function to apply to base text
-  // Wrappers
   wrapper: none, // wrapper for base text: "[ * ]" splits on " * "
   anno-wrapper: none, // wrapper for annotations (none=inherit wrapper, false=disable)
   wrap-anno-parts: false, // wrap each annotation part separately
-  // Advanced features
   delimiter: "|", // delimiter for splitting text
   auto-split: true, // automatically split by delimiter
   distribute: true, // distribute annotation evenly over base
   overhang: false, // allow annotation to overhang base text
   adjust-line-height: none, // auto, specific length, or none
-  // Edge cases
   min-width: none, // minimum width for the ruby box
   compress: true, // compress spacing when multiple rubies are adjacent
   ..sink, // capture extra positional arguments for [] syntax
 ) = {
-  // Handle both syntaxes:
-  // 1. ruby(base, annotation, ...) - traditional
-  // 2. ruby[base][annotation] - content block syntax
   let (final-base, final-annotation) = if annotation == none {
     let args = sink.pos()
     if args.len() == 0 {
@@ -49,7 +39,6 @@
 
   let is-top = if type(pos) == length { true } else { pos == top }
 
-  // Parse wrapper strings
   let parse-wrapper(w) = {
     if w == none or w == false { return none }
     if type(w) != str { return none }
@@ -67,7 +56,6 @@
     parse-wrapper(anno-wrapper)
   }
 
-  // Apply wrapper to content
   let apply-wrapper(content, wrap) = {
     if wrap == none { return content }
     wrap.left + content + wrap.right
@@ -119,13 +107,11 @@
   let base-parts = split-content(final-base)
   let anno-parts = split-content(final-annotation)
 
-  // If lengths don't match, treat as single unit
   if base-parts.len() != anno-parts.len() and distribute {
     base-parts = (final-base,)
     anno-parts = (final-annotation,)
   }
 
-  // Apply styles if provided
   let styled-base(content-val) = {
     let body = if type(content-val) == str { text(content-val) } else { content-val }
     if base-style != none {
@@ -138,22 +124,18 @@
   let styled-anno(content-val) = {
     let body = if type(content-val) == str { content-val } else { content-val }
     if annotation-style != none {
-      // Apply both size and style together
       annotation-style(text(size: anno-size, body))
     } else {
       text(size: anno-size, body)
     }
   }
 
-  // Main rendering using layout - MUST return inline content
   box(layout(size => {
     let sum-body = []
     let sum-width = 0pt
 
-    // Pre-calculate parts and measure with wrapper
     let part-info = ()
 
-    // First, build the complete wrapped base to measure wrapper widths
     let all-base-styled = base-parts
       .map(p => {
         let text-val = if type(p) == str { p } else { extract-text(p) }
@@ -167,7 +149,6 @@
       all-base-styled
     }
 
-    // Measure wrapper overhead
     let wrapper-left-width = 0pt
     let wrapper-right-width = 0pt
     if base-wrapper != none {
@@ -191,7 +172,6 @@
 
       let base-styled = styled-base(base-text)
 
-      // For annotation: apply wrapper per part ONLY if wrap-anno-parts is true
       let wrapped-anno = if wrap-anno-parts and actual-anno-wrapper != none {
         apply-wrapper(anno-text, actual-anno-wrapper)
       } else {
@@ -230,9 +210,7 @@
       ))
     }
 
-    // Wrap all annotations together if wrap-anno-parts is false
     if not wrap-anno-parts and actual-anno-wrapper != none {
-      // Collect all annotation parts
       let all-anno-text = anno-parts
         .map(p => {
           if type(p) == str { p } else { extract-text(p) }
@@ -241,7 +219,6 @@
 
       let wrapped = apply-wrapper(all-anno-text, actual-anno-wrapper)
 
-      // Re-split the wrapped annotation
       let wrapped-parts = wrapped.split(delimiter)
 
       for i in range(part-info.len()) {
@@ -255,7 +232,6 @@
         part-info.at(i).anno-text = wrapped-part
         part-info.at(i).anno-styled = new-styled
 
-        // Recalculate width with wrapper
         let new-width = measure(new-styled).width
         part-info.at(i).anno-plain-width = new-width
 
@@ -265,7 +241,6 @@
       }
     }
 
-    // Calculate left and right padding based on first and last parts
     let left-pad = 0pt
     let right-pad = 0pt
 
@@ -284,14 +259,12 @@
       }
     }
 
-    // Add wrapper left width to initial sum-width before rendering parts
+
     sum-width = wrapper-left-width
 
-    // Render each part with wrapper offset consideration
     for i in range(part-info.len()) {
       let info = part-info.at(i)
 
-      // Create distributed annotation text
       let gutter = if alignment == "center" or alignment == "start" {
         h(0pt)
       } else if alignment == "between" {
@@ -313,14 +286,12 @@
         info.anno-text.clusters().join(gutter)
       }
 
-      // Apply styling to the distributed characters
       let styled-chars = if annotation-style != none {
         annotation-style(text(size: anno-size, chars))
       } else {
         text(size: anno-size, chars)
       }
 
-      // Create annotation box
       let anno-box = box(
         width: info.width,
         align(
@@ -331,7 +302,6 @@
 
       let anno-measured = measure(anno-box)
 
-      // Calculate horizontal offset adjustments
       let dx = anno-measured.width - info.base-measured.width
       let (t-dx, l-dx, r-dx) = if alignment == "start" {
         (0pt, 0pt, dx)
@@ -341,10 +311,8 @@
 
       let (l, r) = (i != 0, i != part-info.len() - 1)
 
-      // Adjust sum-width for first element
       sum-width += if l { 0pt } else { t-dx }
 
-      // Calculate vertical offset
       let dy = if is-top {
         if type(pos) == length {
           -anno-measured.height - gap - pos
@@ -355,7 +323,6 @@
         info.base-measured.height + anno-measured.height / 2 + gap
       }
 
-      // Place annotation (wrapper offset already in sum-width)
       place(
         top + left,
         dx: sum-width + left-pad,
@@ -363,19 +330,16 @@
         anno-box,
       )
 
-      // Update sum-width and sum-body
       sum-width += info.width
       sum-body += if l { h(l-dx) } + info.base-styled + if r { h(r-dx) }
     }
 
-    // Apply wrapper to the ENTIRE base text once at the end
     let final-body = if base-wrapper != none {
       apply-wrapper(sum-body, base-wrapper)
     } else {
       sum-body
     }
 
-    // Return content with proper padding
     h(left-pad) + final-body + h(right-pad)
   }))
 }
