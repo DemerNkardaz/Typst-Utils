@@ -1,4 +1,5 @@
 #import "/modules/text-locale.typ" as Text-Locale
+#import "/modules/ruby-text.typ" as Ruby-Text
 
 #let auto-no-break-words = read("/assets/data/no-break-words.txt")
 
@@ -34,6 +35,8 @@
       )[#content]
     },
   ),
+  // furigana: (
+  // ),
   rotate: (
     pattern: regex("(\\d+deg)\\s@\\s([^\\]]+)"),
     replace: match => {
