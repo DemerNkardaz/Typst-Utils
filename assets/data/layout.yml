@@ -30,9 +30,6 @@ default:
         max: 102%
     spacing: 1em
     leading: 1em
-    first-line-indent:
-      amount: 5mm
-      all: false
     indent:
       first-line:
         amount: 5mm

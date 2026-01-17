@@ -1,3 +1,27 @@
+/*
+	* NOTES:
+
+	? page -> paper
+		* Use this parameter to set the paper type.
+	  * See: https://typst.app/docs/reference/layout/page/#parameters-paper
+		* Use "custom" for a custom width and height, or choose a standard paper variant from the link above.
+
+	? page -> size
+		* Specify both width and height in a single string:
+			* "W × H in mm" or "W * H in mm" (mm, cm, pt)
+		* This sets the page dimensions.
+
+	? page -> width AND height
+		* Can be used individually to override the values set in 'size'.
+
+	? page -> margin
+		* You can provide a single value to apply the same margin on all sides,
+		* or use an object with one or more keys: "top", "bottom", "inside", "outside".
+		* When using a single value, it applies to all four sides by default.
+
+	* glyph-scale and hyphenation min/limits are currently not available.
+*/
+
 layout {
 	mode "default"
 
@@ -21,8 +45,6 @@ layout {
 			widows 2
 			orphans 2
 			overhang true
-
-			first-line-indent amount="5mm" all=false
 
 			indent {
 				first-line amount="5mm" all=false

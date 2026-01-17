@@ -1,7 +1,12 @@
 #let kdl(filepath, to-dict: true) = {
   let content = read(filepath)
 
-  let lines = content.split("\n").map(line => line.split("//").at(0).trim()).filter(line => line != "")
+  // 1. Предварительная очистка блочных комментариев /* ... */
+  // Используем жадное регулярное выражение для удаления всего между /* и */
+  let clean_content = content.replace(regex("/\*[\s\S]*?\*/"), "")
+
+  // 2. Очистка строк от // и фильтрация пустых строк
+  let lines = clean_content.split("\n").map(line => line.split("//").at(0).trim()).filter(line => line != "")
 
   let cast_value(val) = {
     let v = val.trim().trim("\"").trim("'").trim(",").trim("[").trim("]")
@@ -24,6 +29,7 @@
     while i < lines_slice.len() {
       let line = lines_slice.at(i)
 
+      // Пропуск узлов с префиксом /-
       if line.starts-with("/-") {
         i += 1
         if line.ends-with("{") {
@@ -47,12 +53,17 @@
 
         let node_data = (values: (), props: (:), children: (:))
 
-        let tokens = rest.matches(regex("([\w-]+)=((?:\"[^\"]*\"|'[^']*'|[^\s{}]+))|(\"[^\"]*\"|'[^']*'|[^\s{}\[\]]+)"))
+        let tokens = rest.matches(
+          regex("(/-)?\s*([\w-]+)=((?:\"[^\"]*\"|'[^']*'|[^\s{}]+))|(/-)?\s*(\"[^\"]*\"|'[^']*'|[^\s{}\[\]]+)"),
+        )
+
         for token in tokens {
-          if token.captures.at(0) != none {
-            node_data.props.insert(token.captures.at(0), cast_value(token.captures.at(1)))
+          if token.captures.at(0) != none or token.captures.at(3) != none { continue }
+
+          if token.captures.at(1) != none {
+            node_data.props.insert(token.captures.at(1), cast_value(token.captures.at(2)))
           } else {
-            node_data.values.push(cast_value(token.captures.at(2)))
+            node_data.values.push(cast_value(token.captures.at(4)))
           }
         }
 
@@ -95,7 +106,9 @@
         }
 
         if name in nodes {
-          if type(nodes.at(name)) != array { nodes.at(name) = (nodes.at(name), final_entry) } else {
+          if type(nodes.at(name)) != array {
+            nodes.at(name) = (nodes.at(name), final_entry)
+          } else {
             nodes.at(name).push(final_entry)
           }
         } else {
