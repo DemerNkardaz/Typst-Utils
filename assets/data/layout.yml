@@ -1,7 +1,12 @@
 mode: default(web)
+
 meta:
-  format: 70×108 1/16
+  format:
+    size: 70×108
+    fraction: 1/16
+
 default:
+  
   page:
     # https://typst.app/docs/reference/layout/page/#parameters-paper
     # “custom” for customizable width and height or paper variant from link above
@@ -10,6 +15,7 @@ default:
     # or (width: 170mm, height: 260mm)
     margin: 21mm
     # or “top”, “bottom”, “inside” and “outside” inside the “margin” key
+  
   paragraph:
     justification:
       enabled: true
@@ -41,6 +47,7 @@ default:
       min-after: 3
       min-before: 4
       consecutive-limit: 3
+
   text:
     kerning: true
     ligatures: true
@@ -49,6 +56,7 @@ default:
     edge:
       top: x-height
       bottom: baseline
+
   font:
     family: false
     fallback: 
@@ -63,7 +71,9 @@ default:
       - Noto Sans Nushu
     size: 10pt
     footnote-size: 9pt
+
 print:
+
   page:
     margin:
       inside: 16mm

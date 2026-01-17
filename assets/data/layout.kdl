@@ -1,0 +1,67 @@
+layout {
+	mode "default"
+
+	meta {
+		format size="70×108" fraction="1/16"
+	}
+
+	default {
+		page paper="custom" size="170 × 260 in mm" margin="21mm"
+
+		paragraph {
+			justification {
+				spacing min="85%" max="130%"
+				tracking min="-0.05em" max="0.025em"
+				glyph-scale min="97%" max="102%"
+				enabled true
+			}
+
+			spacing "1em"
+			leading "1em"
+			widows 2
+			orphans 2
+			overhang true
+
+			first-line-indent amount="5mm" all=false
+
+			indent {
+				first-line amount="5mm" all=false
+				hanging "0pt"
+			}
+
+			hyphenation enabled="auto" min-after=3 min-before=4 consecutive-limit=3
+		}
+
+		text {
+			kerning true
+			ligatures true
+			number-type "lining"
+			number-width "tabular"
+			edge top="x-height" bottom="baseline"
+		}
+
+		font {
+			family false
+			size "10pt"
+			footnote-size "9pt"
+
+			fallback [
+				"Noto Serif"
+				"Noto Serif JP"
+				"Noto Serif SC"
+				"Noto Serif TC"
+				"Noto Serif HK"
+				"Noto Serif KR"
+				"Noto Serif Tangut"
+				"Noto Serif Khitan Small Script"
+				"Noto Sans Nushu"
+			]
+		}
+	}
+
+	print {
+		page {
+			margin inside="16mm" outside="26mm"
+		}
+	}
+}
