@@ -6,7 +6,7 @@ meta:
     fraction: 1/16
 
 default:
-  
+
   page:
     # https://typst.app/docs/reference/layout/page/#parameters-paper
     # “custom” for customizable width and height or paper variant from link above
@@ -15,7 +15,7 @@ default:
     # or (width: 170mm, height: 260mm)
     margin: 21mm
     # or “top”, “bottom”, “inside” and “outside” inside the “margin” key
-  
+
   paragraph:
     justification:
       enabled: true
@@ -56,7 +56,7 @@ default:
 
   font:
     family: false
-    fallback: 
+    fallback:
       - Noto Serif
       - Noto Serif JP
       - Noto Serif SC

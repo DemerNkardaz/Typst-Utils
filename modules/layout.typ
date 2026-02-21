@@ -1,12 +1,10 @@
 #import "/modules/utils.typ": parse-parameters, regex-rules
 #import "/modules/kdl.typ": kdl
 
-// #let dataYML = yaml("/assets/data/layout.yml")
-// #let modeYML = dataYML.at("mode")
-#let data = kdl("/assets/data/layout.kdl").at("layout")
+#let data = yaml("/assets/data/layout.yml")
 #let mode = data.at("mode")
 
-#data
+// #data
 
 #let get(key, section: mode) = {
   let keys = key.split(".")
