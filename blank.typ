@@ -1,10 +1,6 @@
-/* Imports */
-
 #import "/packages/packages-index.typ": *
 #import "/modules/modules-index.typ": *
 #import "/settings/settings-index.typ": *
-
-/* Base variables and constants */
 
 #let meta-data = yaml("/assets/data/meta.yml")
 #let book-data = yaml("/assets/data/book.yml")
@@ -14,8 +10,6 @@
   base-font-size: 11pt,
   base-font: Fonts-Utils.get-fonts(type: "serif", primaryFont: "PlayFair Display"),
 )
-
-/* Sets */
 
 #set text(
   lang: project.lang,
@@ -32,8 +26,7 @@
   sources: "/assets/data/glossary.yml",
 )
 
-
-/* Document */
+/* =========================================== */
 
 = #meta-data.title
 

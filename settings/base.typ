@@ -39,6 +39,7 @@
       )
     ],
   )
+
   set par(
     justify: layout-get("paragraph.justification.enabled"),
     justification-limits: (
@@ -60,6 +61,7 @@
     hanging-indent: layout-get("paragraph.indent.hanging"),
     linebreaks: "optimized",
   )
+
   set text(
     size: layout-get("font.size"),
     hyphenate: layout-get("paragraph.hyphenation.enabled"),
@@ -77,6 +79,8 @@
     number-width: layout-get("text.number-width"),
     top-edge: layout-get("text.edge.top"),
     bottom-edge: layout-get("text.edge.bottom"),
+    //
+    fill: cmyk(0%, 0%, 0%, 100%),
   )
 
   body

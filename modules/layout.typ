@@ -1,5 +1,4 @@
 #import "/modules/utils.typ": parse-parameters, regex-rules
-#import "/modules/kdl.typ": kdl
 
 #let data = yaml("/assets/data/layout.yml")
 #let mode = data.at("mode")
